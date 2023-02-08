@@ -1,10 +1,21 @@
-/* Style for Testing API */
-img { 
-    max-height: 200px;
-    max-width: 200px;
-border: 0.5pt solid grey;}
+/* Global Styles */
+body {
+    
+    max-height: 100vh
+}
 
-.info-container{
+/* Positioning of Globe */
+#globey { 
+    max-height: 400px;
+    max-width: 400px;
+    position: absolute;
+    top: 40vh;
+    left: 10vh;
+}
+
+
+/* Needs Changing */
+#speech-bubble{
     border: 1pt solid black;
     width: 350px;
     display: flex;
@@ -14,5 +25,16 @@ border: 0.5pt solid grey;}
     margin: auto auto;
 }
 
+/* Style for Buttons */
+.infoBtns{
 
-/* End of style for Testing API */
+}
+
+/* Style for Flags */
+
+/* Style for Inputs */
+
+
+
+
+
