@@ -145,3 +145,7 @@ $(document).ready(function () {
 function clear() {
     $("#speech-bubble").empty();
   }
+
+
+// Testing CSS
+$("#sampleSpeechText")

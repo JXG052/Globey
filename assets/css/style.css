@@ -1,7 +1,7 @@
 /* Global Styles */
 body {
-    
-    max-height: 100vh
+    background-color: blueviolet;
+    max-height: 100vh;
 }
 
 /* Positioning of Globe */
@@ -13,10 +13,8 @@ body {
     left: 10vh;
 }
 
-
 /* Needs Changing */
 #speech-bubble{
-    border: 1pt solid black;
     width: 350px;
     display: flex;
     flex-direction: column;
@@ -25,16 +23,69 @@ body {
     margin: auto auto;
 }
 
-/* Style for Buttons */
-.infoBtns{
+#speech-bubble-image {
+    width: 400px;
+    position: absolute;
+    left: 28vw;
+    top: 10vh;
+}
 
+/* Speech Bubble Text */
+#sampleSpeechText{
+    color: white;
+    position: absolute;
+    width: 200px;
+    left: 500px;
+    top: 100px;
+}
+
+/* Style for Buttons */
+#btn-container {
+    width: 30vw;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    /* border: 1pt solid white; */
+    max-height: 150px;
+    position: absolute;
+    top: 70vh;
+    left: 33vw;
+}
+
+.infoBtns{
+    margin: 5px;
+    border-radius: 15px;
+    width: 200px;
+}
+#randomFactBtn {
+    width: 300px;
+}
+#homeBtn {
+    position: relative;
+    top: -120px;
 }
 
 /* Style for Flags */
+#flag{
+    position: relative;
+    top: 50px;
+    height: 300px;
+    width: 400px;
+    left: 650px;
+}
 
 /* Style for Inputs */
+#country-input {
+    border-radius: 10px;
+    width: 300px;
+    margin-left: 5px;
+}
 
 
+/* Hide class */
 
+.hide {
+    display: none;
+}
 
 
