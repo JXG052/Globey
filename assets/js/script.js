@@ -80,4 +80,5 @@ function clear() {
   }
 
 
-
+// Testing CSS
+$("#sampleSpeechText")
