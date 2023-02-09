@@ -1,0 +1,40 @@
+/* Global Styles */
+body {
+    
+    max-height: 100vh
+}
+
+/* Positioning of Globe */
+#globey { 
+    max-height: 400px;
+    max-width: 400px;
+    position: absolute;
+    top: 40vh;
+    left: 10vh;
+}
+
+
+/* Needs Changing */
+#speech-bubble{
+    border: 1pt solid black;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    margin: auto auto;
+}
+
+/* Style for Buttons */
+.infoBtns{
+
+}
+
+/* Style for Flags */
+
+/* Style for Inputs */
+
+
+
+
+
