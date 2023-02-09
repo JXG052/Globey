@@ -11,33 +11,34 @@
 </head>
 <body>
     <!-- Home Page -->
+    <button id="homeBtn" class="infoBtns">Home</button>
 
         <!-- Globey - our Mascot -->
-        <img id="globey" src="assets/images/Global Image.svg">
+        <img id="globey" src="assets/images/Global Image.svg" >
         <!-- <img id="globey" src="assets/images/Global Image.svg"> -->
 
         <!-- Name Input Form -->
-        <form id="name-form">
+        <form id="name-form" class="hide">
             <input type="text" id="name-input" placeholder="Name">
         </form>
 
-        <!-- Country Input Form -->
-        <form id="country-form">
-            <input type="text" id="country-input" placeholder="Country">
-        </form>
+
 
 
         <!-- Input Form -->
-        <form id="search-form">
+        <form id="search-form" class="hide">
             <input type="text" id="search-input" placeholder="Search for a Country...">
         </form>
 
     <!-- Country Home Section -->
         <!-- What we see when the user has clicked a country -->
 
+        <img src="assets/images/portugal.png" id="flag" alt="flag">
+
         <!-- Info on the country and the button clicked to go here -->
-        <div  class="speech-bubble"id="speech-bubble">
-            <p id="sampleSpeechText">Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore ratione voluptas ducimus aperiam natus magni quaerat eligendi amet quibusdam. Expedita qui placeat repellat pariatur quibusdam quos, eaque minus exercitationem fugit.</p>
+        <div  class="speech-bubble" id="speech-bubble">
+            <img src="assets/images/Bubble-talk.svg" alt="" id="speech-bubble-image">
+            <p id="sampleSpeechText">Lorem ipsum dolor sit amet consectetur  natus magni quaerat eligendi amet quibusdam. Expedita qui placeat repellat pariatur quibusdam quos, eaque minus exercitationem fugit.</p>
         </div>
 
         <!-- Buttons On Country Home Page, Population, capital Etc-->
@@ -48,10 +49,17 @@
             <button id="populationBtn" class="infoBtns">Population</button>
             <button id="populationBtn" class="infoBtns">Population</button>
             <button id="populationBtn" class="infoBtns">Population</button>
+
+            <button id="randomFactBtn" class="infoBtns">Random Fact</button>
+                        <!-- Country Input Form -->
+                        <form id="country-form">
+                            <input type="text" id="country-input" placeholder="New Country...">
+                        </form>
         </div>
         
+        
 
-        <label><input type="checkbox" value="chkBox" id="check">Have you been to Portugal?</label>
+        <label class="hide"><input type="checkbox" value="chkBox" id="check" class="hide">Have you been to Portugal?</label>
 
 
 <!-- Moment.js -->

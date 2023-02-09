@@ -35,6 +35,8 @@ body {
     color: white;
     position: absolute;
     width: 200px;
+    left: 500px;
+    top: 100px;
 }
 
 /* Style for Buttons */
@@ -43,23 +45,47 @@ body {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    border: 1pt solid white;
+    /* border: 1pt solid white; */
     max-height: 150px;
     position: absolute;
     top: 70vh;
-    left: 40vw;
+    left: 33vw;
 }
 
 .infoBtns{
     margin: 5px;
     border-radius: 15px;
+    width: 200px;
+}
+#randomFactBtn {
+    width: 300px;
+}
+#homeBtn {
+    position: relative;
+    top: -120px;
 }
 
 /* Style for Flags */
+#flag{
+    position: relative;
+    top: 50px;
+    height: 300px;
+    width: 400px;
+    left: 650px;
+}
 
 /* Style for Inputs */
+#country-input {
+    border-radius: 10px;
+    width: 300px;
+    margin-left: 5px;
+}
 
 
+/* Hide class */
 
+.hide {
+    display: none;
+}
 
 
