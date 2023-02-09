@@ -1,4 +1,35 @@
+var apiKey = "3102f3b643256623c7321b2ed4853779";    //API key
+
 // Rest Countries API
+let city = "London";
+// Weather API
+function getWeatherCondition() {
+
+    // Constructing a URL to search for current weather data
+    var queryURLCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=metric";
+
+    // Performing AJAX GET request
+    $("#today").empty();
+    $.ajax({
+        url: queryURLCurrent,
+        method: "GET"
+    })
+        // After the data comes back from the API
+        .then(function (response) {
+            console.log(response);
+            var imgIcon = $("<img>");
+            // Store the code of weather icon in the iconUrl variable
+            var iconUrl = response.weather[0].icon;
+            imgIcon.attr("src", "http://openweathermap.org/img/wn/" + iconUrl + "@2x.png");
+            // Add 'alt' attribute to <img> tag
+            imgIcon.attr("alt", "Weather icon");
+
+            var weather = $("<p>").text("Temp: " + response.weather.main + " ");
+
+        })
+}
+
+getWeatherCondition()
 
 // LEES SECTION
 // if user is in local storage
