@@ -48,10 +48,20 @@ console.log("A list of name: " + nameList);
 
 
 
+
+// LEES SECTION
+// if user is in local storage
+// Then say welcome back UserName
+
+
+// If not say Hi
+const messages = ["Region: ", "Currency: ", "Native Name: ", "Main Language: ", "Capital: "];
+
+
 // Search
-$("#search-form").on("submit", function (event) {
-    event.preventDefault()
-    clear()
+$("#search-form").on("submit", function(event){
+    event.preventDefault();
+    clear();
     let countryName = $("#search-input").val().trim()
     const countriesURL = `https://restcountries.com/v2/name/${countryName}`
 
@@ -109,43 +119,104 @@ $("#search-form").on("submit", function (event) {
 
     });
 
+$.ajax({
+    url: countriesURL,
+    method: "GET"
+}).then(function(response){
 
-})
-$(document).ready(function () {
-    $("#populationBtn").on("click", function (event) {
-        // Prevent the default behavior
+    console.log(response);
+    
+    // Generate Flag
+    let flag = $(`<img src="${response[0].flag}">`)
+
+
+    // Imre's Section
+    // Render Region + Region Button
+    // if Region clicked 
+    // Then display region message in bubble
+    $("#regionBtn").on("click", function(event) {
         event.preventDefault();
-
-        // create user object from submission
-        let userInput = [{
-            name: $("#name-input").val(),
-            country: $("#country-input").val(),
-            newUser: $("#check").is(":checked"),
-        }];
-
-        // console.log("The value of userInput: " + JSON.stringify(userInput));
-        // console.log("The value of user.name: " + userInput[0].name);
-        // console.log("The value of user.country: " + userInput[0].country);
-        // console.log("The value of user.visit: " + userInput[0].newUser);
-
-        var userdata = JSON.parse(localStorage.getItem("userLog"));
-        console.log("The value getting from localStorage: " + JSON.stringify(userdata));
-
-        userdata.push(userInput[0]);
-        localStorage.setItem("userLog", JSON.stringify(userdata));
-        var userInf = JSON.parse(localStorage.getItem("userLog"));
-        // userRecord = userInf;
-        console.log("The value getting from localStorage after pushing: " + JSON.stringify(userInf));
-        console.log("No. of Users: " + userInf.length);
-
+        clear();
+        const region = response[0].subregion;;
+        showInfo(messages[0] ,region);
     });
+
+    // Event listener for population button
+    $("#populationBtn").on("click", function(event){
+        event.preventDefault();
+        clear();
+        const population = response[0].population;
+        let populationMessage = "The Population is ";
+        showInfo(populationMessage, population);
+    })
+    
+ 
+
+    // Event listener for Currency button
+    $("#currencyBtn").on("click", function(event) {
+        event.preventDefault();
+        clear();
+        let currency = response[0].currencies[0].name;
+        showInfo(messages[1], currency);
+    })
+
+    // Event listener for Native Name
+    $("#nativeNameBtn").on("click", function(event) {
+        event.preventDefault();
+        clear();
+        let nativeName = response[0].nativeName;
+        showInfo(messages[2], nativeName);
+    })
+
+    // Render Languages Spoken & button
+    $("#languageBtn").on("click", function(event) {
+        event.preventDefault();
+        clear();
+        let languageSpoken = response[0].languages[0].name;
+        showInfo(messages[3], languageSpoken);
+    })
+
+    // Render Capital and Button
+    $("#capitalBtn").on("click", function(event) {
+        event.preventDefault();
+        clear();
+        let capital = response[0].capital;
+        showInfo(messages[4], capital);
+    })
+
+    // This is an event listener for the Weather button
+    $("#weatherBtn").on("click", function() {
+        event.preventDefault();
+        clear();
+        let capital = response[0].capital;
+
+    })
+
+    // Get Random Fact
+
+    // LEE'S SECTION
+    // if checkoutBox === checked{
+    // store name and variable 
+       
+
+    })
+
+
+    
 })
+
 
 // Function to empty out the articles
 function clear() {
     $("#speech-bubble").empty();
   }
 
+// Function to display the country info in the bubble
+function showInfo(message, data) {
+    clear();
+    let info = $(`<p class="info" id="capital">${message+data}</p>`);
+    $("#speech-bubble").append(info);
+}
 
 // Testing CSS
 $("#sampleSpeechText")
