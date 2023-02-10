@@ -10,43 +10,62 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <!-- Home Page -->
+    <div class="pageContainer container-fluid">   
+        <button id="home-button">Home</button>
 
-        <!-- Globey - our Mascot -->
-        <img id="globey" src="assets/images/Global Image.svg">
+        <div class="top-row row">
+            <div class="speech-bubble-container col-4">
+                <!-- <img src="assets/images/Bubble-talk.svg" alt="speech bubble" id="speech-bubble-image"> -->
+                <p class="speech-bubble-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae omnis consequatur ex in cumque aspernatur quis iure dignissimos unde, porro illo eius est eum ipsa rem magnam deserunt, voluptas alias!</p>    
+                
+            </div>
+                
 
+            <!-- Info on the country and the button clicked to go here -->
+            <div  class="flag-container col-5" id="flag-container">
+                <img src="assets/images/portugal.png" class="flag" alt="">
+            </div>
+            
+        </div>
+
+
+        <div class="bottom-row row">
+            <!-- Globey - our Mascot -->
+            <div class="col-3" id="globey-container">
+                <img id="globey" src="assets/images/Global Image.svg">
+            </div>
+            <div class="col-3 btns-container">
+                <button type="button" class="btn btn-primary btn-lg infoBtns" id="populationBtn">Population</button>
+                <button type="button" class="btn btn-primary btn-lg infoBtns" id="capitalBtn">Capital</button>
+                <button type="button" class="btn btn-primary btn-lg infoBtns" id="languageBtn">Language</button>
+                <button type="button" class="btn btn-primary btn-lg infoBtns" id="weatherBtn">Weather</button>
+                <button type="button" class="btn btn-primary btn-lg infoBtns" id="currencyBtn">Currency</button>
+                <button type="button" class="btn btn-primary btn-lg infoBtns" id="regionBtn">Region</button>
+                <!-- <button type="button" class="btn btn-primary btn-lg infoBtns" id="nativeNameBtn">Native Name</button> -->
+            </div>
+            <div class="col-3 features-container">
+                <!-- <button type="button" class="btn btn-primary btn-lg infoBtns" id="randomFactBtn">Random Fact</button> -->
+                <!-- Input Form -->
+                <form id="search-form">
+                    <input type="text" id="search-input" placeholder="Search New Country...">
+                </form>
+
+               
+                <label for="html"><input type="radio" id="html" name="fav_language" value="HTML"> I've been to Portugal </label>
+
+            </div>
+
+
+
+        </div> <!--End ofbottom row-->
+
+    <!-- </div class="country-search-container"> -->
         <!-- Input Form -->
-        <form id="search-form">
+        <!-- <form id="search-form">
             <input type="text" id="search-input" placeholder="Search for a Country...">
         </form>
-
-    <!-- Country Home Section -->
-        <!-- What we see when the user has clicked a country -->
-
-        <!-- Info on the country and the button clicked to go here -->
-        <div  class="speech-bubble"id="speech-bubble">
-        </div>
-
-        <!-- Buttons On Country Home Page, Population, capital Etc-->
-        <!-- <button id="populationBtn" class="infoBtns">Population</button> -->
-        <div class="container">
-          <div class=" row align-items-end">
-            <div class="col-3">
-              <button type="button" class="btn btn-primary btn-lg infoBtns" id="populationBtn">Population</button>
-              <button type="button" class="btn btn-primary btn-lg infoBtns" id="capitalBtn">Capital</button>
-              <button type="button" class="btn btn-primary btn-lg infoBtns" id="languageBtn">Language</button>
-              <button type="button" class="btn btn-primary btn-lg infoBtns" id="weatherBtn">Weather</button>
-              <button type="button" class="btn btn-primary btn-lg infoBtns" id="currencyBtn">Currency</button>
-              <button type="button" class="btn btn-primary btn-lg infoBtns" id="regionBtn">Region</button>
-              <button type="button" class="btn btn-primary btn-lg infoBtns" id="nativeNameBtn">Native Name</button>
-            </div>
-          </div>
-        </div>
-
-
-
-
-
+    </div>  -->
+    </div>
 <!-- Moment.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 <!-- jQuery -->
