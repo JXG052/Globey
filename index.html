@@ -16,14 +16,14 @@
         <div class="top-row row">
             <div class="speech-bubble-container col-4">
                 <!-- <img src="assets/images/Bubble-talk.svg" alt="speech bubble" id="speech-bubble-image"> -->
-                <p class="speech-bubble-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae omnis consequatur ex in cumque aspernatur quis iure dignissimos unde, porro illo eius est eum ipsa rem magnam deserunt, voluptas alias!</p>    
+                <!-- <p class="speech-bubble-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae omnis consequatur ex in cumque aspernatur quis iure dignissimos unde, porro illo eius est eum ipsa rem magnam deserunt, voluptas alias!</p>     -->
                 
             </div>
                 
 
             <!-- Info on the country and the button clicked to go here -->
             <div  class="flag-container col-5" id="flag-container">
-                <img src="assets/images/portugal.png" class="flag" alt="">
+                <!-- <img src="assets/images/portugal.png" class="flag" alt=""> -->
             </div>
             
         </div>
@@ -34,7 +34,7 @@
             <div class="col-3" id="globey-container">
                 <img id="globey" src="assets/images/Global Image.svg">
             </div>
-            <div class="col-3 btns-container">
+            <div class="col-3 btns-container hide">
                 <button type="button" class="btn btn-primary btn-lg infoBtns" id="populationBtn">Population</button>
                 <button type="button" class="btn btn-primary btn-lg infoBtns" id="capitalBtn">Capital</button>
                 <button type="button" class="btn btn-primary btn-lg infoBtns" id="languageBtn">Language</button>
@@ -50,9 +50,10 @@
                     <input type="text" id="search-input" placeholder="Search New Country...">
                 </form>
 
-               
-                <label for="html"><input type="radio" id="html" name="fav_language" value="HTML"> I've been to Portugal </label>
-
+               <div id="radio-div" class="hide">
+                    <input type="radio" id="html" name="fav_language" value="HTML"><label for="html" id="radio-label"> I've been to Portugal </label>
+               </div>
+                
             </div>
 
 
