@@ -1,222 +1,169 @@
-var apiKey = "3102f3b643256623c7321b2ed4853779";    //API key
+let countryPage = false;
 
-// Rest Countries API
-let city = "London";
-// Weather API
-function getWeatherCondition() {
+let countriesVisited = []
 
+function callSavedData(){
+    $(".countries-visited-container").empty()
+    let storedData = localStorage.getItem("countries")
+    if (storedData === null){
+        countriesVisited = []
+    } else if (typeof storedData === "string"){
+        countriesVisited.push(storedData)
+        displayHistory(countriesVisited)
+    } else {
+        storedData.forEach(function(element){
+            countriesVisited.push(element)
+        })
+        displayHistory(countriesVisited)
+    } 
+}
+function displayHistory (array){
+    $(".countries-visited-container").empty()
+    if (array.length === 1){
+        let newDiv = $(`<div>${array[0]}</div>`)
+        $(".countries-visited-container").append(newDiv)       
+    }
+    else {
+        array.forEach(function(element){
+            let newDiv = $(`<div>${element}</div>`)
+            $(".countries-visited-container").append(newDiv)
+        })
+    }
+}
+// logs weather response based on city parameter
+function getWeatherCondition(city) {
+    
+    const weatherApiKey = "3102f3b643256623c7321b2ed4853779"
     // Constructing a URL to search for current weather data
-    var queryURLCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=metric";
+    const queryURLCurrent = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherApiKey}`
+    // API Key for Open Weather API
 
     // Performing AJAX GET request
-    $("#today").empty();
+                            // $("#today").empty(); -- What is this doing?
     $.ajax({
         url: queryURLCurrent,
         method: "GET"
     })
         // After the data comes back from the API
         .then(function (response) {
-            console.log(response);
-            var imgIcon = $("<img>");
-            // Store the code of weather icon in the iconUrl variable
-            var iconUrl = response.weather[0].icon;
-            imgIcon.attr("src", "http://openweathermap.org/img/wn/" + iconUrl + "@2x.png");
-            // Add 'alt' attribute to <img> tag
-            imgIcon.attr("alt", "Weather icon");
-
-            var weather = $("<p>").text("Temp: " + response.weather.main + " ");
-
+            clear()
+            let info = $(`<p class="speech-bubble-text">The Weather in ${city} is ${response.weather[0].description}!</p>`);
+            $(".speech-bubble-container").append(info);
         })
+        
 }
 
-getWeatherCondition()
-
-// LEES SECTION
-// if user is in local storage
-// Then say welcome back UserName
-// create user object
-// If not say Hi
-var nameList = [];
-var userRecord = JSON.parse(localStorage.getItem("userLog"));
-console.log("The value of userReCord: " + JSON.stringify(userRecord));
-
-for (let i = 0; i < userRecord.length; i++) {
-    nameList.push(userRecord[i].name);
-}
-console.log("A list of name: " + nameList);
 
 
 
+$(function(){
+    // retrieves saved values and displays them topleft
+    callSavedData()
+    // Home Page
+    if (!countryPage){
+    let welcomeMessage = $(`<p class="speech-bubble-text">Hi User, I'm Globey, It's nice to meet you</p>`);
+    $(".speech-bubble-container").append(welcomeMessage);
+    $("#flag-container").empty()
+    $(".btns-container").addClass("hide")
+    $("#radio-div").addClass("hide")
+    }
 
 
-// LEES SECTION
-// if user is in local storage
-// Then say welcome back UserName
-
-
-// If not say Hi
-const messages = ["Region: ", "Currency: ", "Native Name: ", "Main Language: ", "Capital: "];
-
-
-// Search
-$("#search-form").on("submit", function(event){
-    event.preventDefault();
-    clear();
-    let countryName = $("#search-input").val().trim()
-    const countriesURL = `https://restcountries.com/v2/name/${countryName}`
-
-    $.ajax({
-        url: countriesURL,
-        method: "GET"
-    }).then(function (response) {
-
-        // Generate Flag
-        let flag = $(`<img src="${response[0].flag}">`)
-
-
-        // Imre's Section
-        // Render Region + Region Button
-        // if Region clicked 
-        // Then display region message in bubble
-        let region = $(`<p class="info" id="region">Region: ${response[0].region}</p>`)
-
-        // Render Subregion & Subregion Button
-        // if SubRegion clicked 
-        // Then display Subregion message in bubble
-        let subRegion = $(`<p class="info" id="subregion">subregion: ${response[0].subregion}</p>`)
-
-        // Render Population & button
-
-        // Add event listener to Population Button that
-        // hide everything in speech bubble and show population message
-        $("#populationBtn").click(function (event) {
-            let populationMessage = $(`<p class="info" id="population">The Population in ${countryName} is ${response[0].population} people</p>`)
-            $("#speech-bubble").append(populationMessage);
-        })
-
-
-
-        // Render Currency & button
-        let currency = $(`<p class="info" id="currency">Currency: ${response[0].currencies[0].name}</p>`)
-
-        // Render Native Name & button
-        let nativeName = $(`<p class="info" id="nativeName">Native Name: ${response[0].nativeName}</p>`)
-
-        // Render Languages Spoken & button
-        let languageSpoken = $(`<p class="info" id="languageSpoken">Main Language: ${response[0].languages[0].name}</p>`)
-
-        // Render Capital and Button
-        let capital = $(`<p class="info" id="capital">Capital: ${response[0].capital}</p>`)
-
-        // Get Random Fact
-
-        // LEE'S SECTION
-        // if checkoutBox === checked{
-        // store name and variable 
-        // Create data objects to store the 5-day weather data and the target weather data
-
-
-
-    });
-
-$.ajax({
-    url: countriesURL,
-    method: "GET"
-}).then(function(response){
-
-    console.log(response);
-    
-    // Generate Flag
-    let flag = $(`<img src="${response[0].flag}">`)
-
-
-    // Imre's Section
-    // Render Region + Region Button
-    // if Region clicked 
-    // Then display region message in bubble
-    $("#regionBtn").on("click", function(event) {
+    // Search
+    $("#search-form").on("submit", function(event){
         event.preventDefault();
+        countryPage = true;
+        $(".countries-visited-container").addClass("hide")
         clear();
-        const region = response[0].subregion;;
-        showInfo(messages[0] ,region);
-    });
+        let countryName = $("#search-input").val().trim()
+        $("#search-input").val("")
+        console.log(countryName);
+        const countriesURL = `https://restcountries.com/v2/name/${countryName}`
 
-    // Event listener for population button
-    $("#populationBtn").on("click", function(event){
-        event.preventDefault();
-        clear();
-        const population = response[0].population;
-        let populationMessage = "The Population is ";
-        showInfo(populationMessage, population);
+        $.ajax({
+            url: countriesURL,
+            method: "GET"
+        }).then(function (response) {
+            welcomeMessage = (`<p class="speech-bubble-text">Welcome to ${response[0].name}`)
+            $(".btns-container").removeClass("hide")
+            $(".speech-bubble-container").append(welcomeMessage)
+            $('#radio-div').removeClass("hide")
+            $('#saveBtn').removeClass("hide")
+            $('#saveBtn').text(`I've been to ${response[0].name} `)
+            
+            
+            // Add Flag
+            $("#flag-container").empty();
+            let flag = $(`<img src="${response[0].flag}" class="flag">`)
+            $("#flag-container").append(flag)
+
+            // Add functionality to buttons
+            $(".btns-container").on("click", ".btn", function(event){
+                event.preventDefault()
+                let buttonClicked = event.target.innerHTML;
+                showInfo(response, buttonClicked)
+            } )
+
+            // saves country name
+            $('#saveBtn').click(function(event){
+                event.preventDefault()
+                let countryToSave = response[0].name;
+                countriesVisited.push(countryToSave)
+                localStorage.setItem("countries", countriesVisited)  
+                callSavedData()     
+            })
+            
     })
-    
- 
-
-    // Event listener for Currency button
-    $("#currencyBtn").on("click", function(event) {
-        event.preventDefault();
-        clear();
-        let currency = response[0].currencies[0].name;
-        showInfo(messages[1], currency);
     })
 
-    // Event listener for Native Name
-    $("#nativeNameBtn").on("click", function(event) {
-        event.preventDefault();
-        clear();
-        let nativeName = response[0].nativeName;
-        showInfo(messages[2], nativeName);
-    })
-
-    // Render Languages Spoken & button
-    $("#languageBtn").on("click", function(event) {
-        event.preventDefault();
-        clear();
-        let languageSpoken = response[0].languages[0].name;
-        showInfo(messages[3], languageSpoken);
-    })
-
-    // Render Capital and Button
-    $("#capitalBtn").on("click", function(event) {
-        event.preventDefault();
-        clear();
-        let capital = response[0].capital;
-        showInfo(messages[4], capital);
-    })
-
-    // This is an event listener for the Weather button
-    $("#weatherBtn").on("click", function() {
-        event.preventDefault();
-        clear();
-        let capital = response[0].capital;
+    // Home Button
+    $("#home-button").click(function(event){
+        // countryPage = false;
+        $("#flag-container").empty()
+        $(".btns-container").addClass("hide")
+        $("#radio-div").addClass("hide")
+        $(".countries-visited-container").removeClass("hide")
+        $("#saveBtn").addClass("hide")
+        clear()
+        let welcomeMessage = $(`<p class="speech-bubble-text">Hi User, Welcome back to the home page</p>`);
+        $(".speech-bubble-container").append(welcomeMessage);
 
     })
-
-    // Get Random Fact
-
-    // LEE'S SECTION
-    // if checkoutBox === checked{
-    // store name and variable 
-       
-
-    })
-
-
-    
 })
 
-
-// Function to empty out the articles
+// Function to empty out the speechbubble
 function clear() {
-    $("#speech-bubble").empty();
+    $(".speech-bubble-container").empty();
   }
 
-// Function to display the country info in the bubble
-function showInfo(message, data) {
+// // Function to display the country info in the bubble
+function showInfo(response, buttonClicked) {
     clear();
-    let info = $(`<p class="info" id="capital">${message+data}</p>`);
-    $("#speech-bubble").append(info);
+    let info;
+    switch (buttonClicked){
+        case 'Population':
+            info = $(`<p class="speech-bubble-text">${response[0].name} has a population of ${response[0].population} people!</p>`);
+            $(".speech-bubble-container").append(info);
+            break;
+        case 'Weather':
+            getWeatherCondition(response[0].capital)
+            break;
+        case 'Capital':
+            info = $(`<p class="speech-bubble-text">The capital of ${response[0].name} is ${response[0].capital}!</p>`);
+            $(".speech-bubble-container").append(info);
+            break;
+        case 'Currency':
+            info = $(`<p class="speech-bubble-text">In ${response[0].name}, the local currency is ${response[0].currencies[0].name}, ${response[0].currencies[0].symbol}!</p>`)
+            $(".speech-bubble-container").append(info);
+            break;
+        case 'Language':
+            info =  $(`<p class="speech-bubble-text">In ${response[0].name}, they speak ${response[0].languages[0].name}!</p>`);
+            $(".speech-bubble-container").append(info);
+            break;
+        case 'Region':
+            info = $(`<p class="speech-bubble-text">In case you weren't sure, ${response[0].name} is located in ${response[0].subregion}!</p>`);
+            $(".speech-bubble-container").append(info);
+            break;
+    }   
 }
 
-// Testing CSS
-$("#sampleSpeechText")
