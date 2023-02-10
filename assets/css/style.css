@@ -71,9 +71,7 @@ body {
     height: 80%;
     width: 90%;
     border-radius: 10px;
-    
 }
-
 
 .bottom-row{
     display: flex;
@@ -84,8 +82,6 @@ body {
     max-height: 200px;
     max-width: 400px;
 }
-
-
 
 /* Style for Buttons */
 .btns-container {
@@ -100,13 +96,10 @@ body {
 .infoBtns{
     margin: 5px;
     border-radius: 15px;
-
 }
-
 
 .features-container{
     /* border: 1pt solid white; */
-
     width: 30vw;
     height: 200px;
     display: flex;
@@ -114,8 +107,6 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    
-    
     /* border: 1pt solid red; */
 }
 

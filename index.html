@@ -12,18 +12,20 @@
 <body>
     <div class="pageContainer container-fluid">   
         <button id="home-button">Home</button>
+        <div class="countries-visited-container">
+
+        </div>
 
         <div class="top-row row">
             <div class="speech-bubble-container col-4">
-                <!-- <img src="assets/images/Bubble-talk.svg" alt="speech bubble" id="speech-bubble-image"> -->
-                <!-- <p class="speech-bubble-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae omnis consequatur ex in cumque aspernatur quis iure dignissimos unde, porro illo eius est eum ipsa rem magnam deserunt, voluptas alias!</p>     -->
+                
                 
             </div>
                 
 
             <!-- Info on the country and the button clicked to go here -->
             <div  class="flag-container col-5" id="flag-container">
-                <!-- <img src="assets/images/portugal.png" class="flag" alt=""> -->
+                
             </div>
             
         </div>
@@ -44,15 +46,14 @@
                 <!-- <button type="button" class="btn btn-primary btn-lg infoBtns" id="nativeNameBtn">Native Name</button> -->
             </div>
             <div class="col-3 features-container">
-                <!-- <button type="button" class="btn btn-primary btn-lg infoBtns" id="randomFactBtn">Random Fact</button> -->
+                
                 <!-- Input Form -->
                 <form id="search-form">
                     <input type="text" id="search-input" placeholder="Search New Country...">
                 </form>
 
-               <div id="radio-div" class="hide">
-                    <input type="radio" id="html" name="fav_language" value="HTML"><label for="html" id="radio-label"> I've been to Portugal </label>
-               </div>
+
+               <button type="button" class="btn btn-primary btn-lg hide" id="saveBtn"></button>
                 
             </div>
 
@@ -60,12 +61,7 @@
 
         </div> <!--End ofbottom row-->
 
-    <!-- </div class="country-search-container"> -->
-        <!-- Input Form -->
-        <!-- <form id="search-form">
-            <input type="text" id="search-input" placeholder="Search for a Country...">
-        </form>
-    </div>  -->
+
     </div>
 <!-- Moment.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>

@@ -1,4 +1,35 @@
 let countryPage = false;
+
+let countriesVisited = []
+
+function callSavedData(){
+    $(".countries-visited-container").empty()
+    let storedData = localStorage.getItem("countries")
+    if (storedData === null){
+        countriesVisited = []
+    } else if (typeof storedData === "string"){
+        countriesVisited.push(storedData)
+        displayHistory(countriesVisited)
+    } else {
+        storedData.forEach(function(element){
+            countriesVisited.push(element)
+        })
+        displayHistory(countriesVisited)
+    } 
+}
+function displayHistory (array){
+    $(".countries-visited-container").empty()
+    if (array.length === 1){
+        let newDiv = $(`<div>${array[0]}</div>`)
+        $(".countries-visited-container").append(newDiv)       
+    }
+    else {
+        array.forEach(function(element){
+            let newDiv = $(`<div>${element}</div>`)
+            $(".countries-visited-container").append(newDiv)
+        })
+    }
+}
 // logs weather response based on city parameter
 function getWeatherCondition(city) {
     
@@ -25,29 +56,16 @@ function getWeatherCondition(city) {
 
 
 
-
-
-
-// Storage 
-// var nameList = [];
-// var userRecord = JSON.parse(localStorage.getItem("userLog"));
-// console.log("The value of userReCord: " + JSON.stringify(userRecord));
-
-// for (let i = 0; i < userRecord.length; i++) {
-//     nameList.push(userRecord[i].name);
-// }
-// console.log("A list of name: " + nameList);
-
-
-// If not say Hi
-// const messages = ["Region: ", "Currency: ", "Native Name: ", "Main Language: ", "Capital: "];
-
 $(function(){
+    // retrieves saved values and displays them topleft
+    callSavedData()
+    // Home Page
     if (!countryPage){
     let welcomeMessage = $(`<p class="speech-bubble-text">Hi User, I'm Globey, It's nice to meet you</p>`);
     $(".speech-bubble-container").append(welcomeMessage);
     $("#flag-container").empty()
     $(".btns-container").addClass("hide")
+    $("#radio-div").addClass("hide")
     }
 
 
@@ -55,8 +73,10 @@ $(function(){
     $("#search-form").on("submit", function(event){
         event.preventDefault();
         countryPage = true;
+        $(".countries-visited-container").addClass("hide")
         clear();
         let countryName = $("#search-input").val().trim()
+        $("#search-input").val("")
         console.log(countryName);
         const countriesURL = `https://restcountries.com/v2/name/${countryName}`
 
@@ -67,37 +87,49 @@ $(function(){
             welcomeMessage = (`<p class="speech-bubble-text">Welcome to ${response[0].name}`)
             $(".btns-container").removeClass("hide")
             $(".speech-bubble-container").append(welcomeMessage)
-            $('#radio-label').text(`I've been to ${response[0].name} `)
+            $('#radio-div').removeClass("hide")
+            $('#saveBtn').removeClass("hide")
+            $('#saveBtn').text(`I've been to ${response[0].name} `)
             
-
+            
             // Add Flag
             $("#flag-container").empty();
             let flag = $(`<img src="${response[0].flag}" class="flag">`)
             $("#flag-container").append(flag)
 
-
+            // Add functionality to buttons
             $(".btns-container").on("click", ".btn", function(event){
                 event.preventDefault()
                 let buttonClicked = event.target.innerHTML;
                 showInfo(response, buttonClicked)
             } )
 
+            // saves country name
+            $('#saveBtn').click(function(event){
+                event.preventDefault()
+                let countryToSave = response[0].name;
+                countriesVisited.push(countryToSave)
+                localStorage.setItem("countries", countriesVisited)  
+                callSavedData()     
+            })
+            
     })
     })
 
     // Home Button
     $("#home-button").click(function(event){
-        countryPage = false;
+        // countryPage = false;
         $("#flag-container").empty()
         $(".btns-container").addClass("hide")
+        $("#radio-div").addClass("hide")
+        $(".countries-visited-container").removeClass("hide")
+        $("#saveBtn").addClass("hide")
         clear()
         let welcomeMessage = $(`<p class="speech-bubble-text">Hi User, Welcome back to the home page</p>`);
         $(".speech-bubble-container").append(welcomeMessage);
 
     })
 })
-
-
 
 // Function to empty out the speechbubble
 function clear() {
@@ -115,7 +147,6 @@ function showInfo(response, buttonClicked) {
             break;
         case 'Weather':
             getWeatherCondition(response[0].capital)
-            console.log(response[0].capital);
             break;
         case 'Capital':
             info = $(`<p class="speech-bubble-text">The capital of ${response[0].name} is ${response[0].capital}!</p>`);
@@ -133,8 +164,6 @@ function showInfo(response, buttonClicked) {
             info = $(`<p class="speech-bubble-text">In case you weren't sure, ${response[0].name} is located in ${response[0].subregion}!</p>`);
             $(".speech-bubble-container").append(info);
             break;
-    }
-    
-    
+    }   
 }
 
