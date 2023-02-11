@@ -1,10 +1,17 @@
 let countryPage = false;
 
-let countriesVisited = []
+let counter = 1;
+let user = {
+    userName,
+    countriesVisited: [],
+    flag
+}
 
 function callSavedData(){
     $(".countries-visited-container").empty()
     let storedData = localStorage.getItem("countries")
+    console.log(storedData);
+    console.log(typeof storedData);
     if (storedData === null){
         countriesVisited = []
     } else if (typeof storedData === "string"){
@@ -59,9 +66,11 @@ function getWeatherCondition(city) {
 $(function(){
     // retrieves saved values and displays them topleft
     callSavedData()
+
     // Home Page
     if (!countryPage){
     let welcomeMessage = $(`<p class="speech-bubble-text">Hi User, I'm Globey, It's nice to meet you</p>`);
+
     $(".speech-bubble-container").append(welcomeMessage);
     $("#flag-container").empty()
     $(".btns-container").addClass("hide")
@@ -108,7 +117,7 @@ $(function(){
             $('#saveBtn').click(function(event){
                 event.preventDefault()
                 let countryToSave = response[0].name;
-                countriesVisited.push(countryToSave)
+                user.countriesVisited.push(countryToSave);
                 localStorage.setItem("countries", countriesVisited)  
                 callSavedData()     
             })
