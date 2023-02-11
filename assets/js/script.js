@@ -2,28 +2,28 @@ let countryPage = false;
 
 let counter = 1;
 let user = {
-    userName,
-    countriesVisited: [],
-    flag
-}
+    userName : "",
+    countriesVisited : [],
+    flags : []
+};
 
-function callSavedData(){
-    $(".countries-visited-container").empty()
-    let storedData = localStorage.getItem("countries")
-    console.log(storedData);
-    console.log(typeof storedData);
-    if (storedData === null){
-        countriesVisited = []
-    } else if (typeof storedData === "string"){
-        countriesVisited.push(storedData)
-        displayHistory(countriesVisited)
-    } else {
-        storedData.forEach(function(element){
-            countriesVisited.push(element)
-        })
-        displayHistory(countriesVisited)
-    } 
-}
+// function callSavedData(){
+//     $(".countries-visited-container").empty()
+//     let storedData = localStorage.getItem("countries")
+//     console.log(storedData);
+//     console.log(typeof storedData);
+//     if (storedData === null){
+//         countriesVisited = []
+//     } else if (typeof storedData === "string"){
+//         countriesVisited.push(storedData)
+//         displayHistory(countriesVisited)
+//     } else {
+//         storedData.forEach(function(element){
+//             countriesVisited.push(element)
+//         })
+//         displayHistory(countriesVisited)
+//     } 
+// }
 function displayHistory (array){
     $(".countries-visited-container").empty()
     if (array.length === 1){
@@ -65,17 +65,26 @@ function getWeatherCondition(city) {
 
 $(function(){
     // retrieves saved values and displays them topleft
-    callSavedData()
+    // callSavedData()
 
     // Home Page
     if (!countryPage){
     let welcomeMessage = $(`<p class="speech-bubble-text">Hi User, I'm Globey, It's nice to meet you</p>`);
-
     $(".speech-bubble-container").append(welcomeMessage);
     $("#flag-container").empty()
     $(".btns-container").addClass("hide")
     $("#radio-div").addClass("hide")
     }
+
+    // Get the name input from user
+    $("#nameSubmit").on("click", function(event) {
+        event.preventDefault();
+        const name = $("#userName").val().trim();
+        console.log(name);
+        user.userName = name;
+        $("#userName").val("");
+        $(".nameInput").addClass("hide")
+    })
 
 
     // Search
@@ -96,7 +105,9 @@ $(function(){
                 displayErrorScreen();
             }
         }).then(function (response) {
-            $("#globey").attr("src", "assets/images/Global Image.svg")
+            $("#globey").attr("src", "assets/images/Global Image.svg");
+            const userCountry = response[0].name;
+            user.countriesVisited.push(userCountry);
             welcomeMessage = (`<p class="speech-bubble-text">Welcome to ${response[0].name}`)
             $(".btns-container").removeClass("hide")
             $(".speech-bubble-container").append(welcomeMessage)
@@ -108,7 +119,9 @@ $(function(){
             // Add Flag
             $("#flag-container").empty();
             let flag = $(`<img src="${response[0].flag}" class="flag">`)
-            $("#flag-container").append(flag)
+            $("#flag-container").append(flag);
+            let userFlag = response[0].flag;
+            user.flags.push(userFlag);
 
             // Add functionality to buttons
             $(".btns-container").on("click", ".btn", function(event){
@@ -117,13 +130,22 @@ $(function(){
                 showInfo(response, buttonClicked)
             } )
 
-            // saves country name
+            // save data to localStorage
             $('#saveBtn').click(function(event){
-                event.preventDefault()
-                let countryToSave = response[0].name;
-                user.countriesVisited.push(countryToSave);
-                localStorage.setItem("countries", countriesVisited)  
-                callSavedData()     
+                event.preventDefault();
+                localStorage.setItem(user.userName, JSON.stringify(user));
+                // if (localStorage.getItem(user.userName)!==null) {
+                    const userData = JSON.parse(localStorage.getItem(user.userName));
+                    console.log(userData);
+                //     if (userData.countriesVisited.includes(userCountry)) {}
+                //     else {userData.countriesVisited.push(userCountry);}
+                //     if (userData.flags.includes(userFlag)) {}
+                //     else {userData.flag.push(userFlag)}
+                //     localStorage.setItem(user.userName, JSON.stringify(userData));
+                // } else {
+                //     localStorage.setItem(user.userName, JSON.stringify(user));
+                // }
+                // callSavedData()
             })
             
     })
