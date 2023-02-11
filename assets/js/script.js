@@ -91,8 +91,12 @@ $(function(){
 
         $.ajax({
             url: countriesURL,
-            method: "GET"
+            method: "GET",
+            error: function (err) {
+                displayErrorScreen();
+            }
         }).then(function (response) {
+            $("#globey").attr("src", "assets/images/Global Image.svg")
             welcomeMessage = (`<p class="speech-bubble-text">Welcome to ${response[0].name}`)
             $(".btns-container").removeClass("hide")
             $(".speech-bubble-container").append(welcomeMessage)
@@ -133,6 +137,7 @@ $(function(){
         $("#radio-div").addClass("hide")
         $(".countries-visited-container").removeClass("hide")
         $("#saveBtn").addClass("hide")
+        $("#globey").attr("src", "assets/images/Global Image.svg")
         clear()
         let welcomeMessage = $(`<p class="speech-bubble-text">Hi User, Welcome back to the home page</p>`);
         $(".speech-bubble-container").append(welcomeMessage);
@@ -176,3 +181,12 @@ function showInfo(response, buttonClicked) {
     }   
 }
 
+function displayErrorScreen(){
+    let errorMessage = $(`<p class="speech-bubble-text">Oh Oh! I don't think that's a country </p>`);
+    $(".speech-bubble-container").append(errorMessage);
+    $("#globey").attr("src", "assets/images/sad-globey.svg")
+    $(".flag-container").empty()
+    $(".btns-container").addClass("hide")
+    $("#saveBtn").addClass("hide")
+
+}
