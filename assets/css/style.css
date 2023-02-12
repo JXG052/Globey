@@ -4,7 +4,7 @@
 }
 
 html, .paige-container {
-    height: 100%;
+    height: calc(100vh);
     width: 100%;
     margin: 0;
     padding: 0;
@@ -28,6 +28,7 @@ body {
 .top-row {
     display: flex;
     justify-content: center;
+    min-height: 25vh;
 }
 
 /* Speech Bubbles */
@@ -43,19 +44,84 @@ body {
     position:relative;
     border-radius: 50px;
   }
-  /* The Triangle */
-  .speech-bubble-container:before{
-    content: "";
-    width: 0px;
-    height: 0px;
-    position: absolute;
-    border-left: 10px solid #00bfb6;
-    border-right: 10px solid transparent;
-    border-top: 10px solid #00bfb6;
-    border-bottom: 10px solid transparent;
-    left: 59px;
-    bottom: -19px;
+    /* The Triangle */
+    .speech-bubble-container:before{
+        content: "";
+        width: 0px;
+        height: 0px;
+        position: absolute;
+        border-left: 10px solid #00bfb6;
+        border-right: 10px solid transparent;
+        border-top: 10px solid #00bfb6;
+        border-bottom: 10px solid transparent;
+        left: 59px;
+        bottom: -19px;
+      }
+
+      .bottom-row{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    /* Style for Buttons */
+    .btns-container {
+        width: 30%;
+        max-height: 200px;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        left: -100px;
+        /* border: 1pt solid white */
+    } 
+
+  @media screen and (max-width: 800px){
+    .speech-bubble-container {
+        width: 5rem;
+        margin: 5px auto;
+        background: #00bfb6;
+        padding: 5px;
+        text-align: center;
+        font-weight: 400;
+        color: #fff;
+        font-family: arial;
+        position:relative;
+        border-radius: 30px;
+      }
+      .speech-bubble-container:before{
+        left: 200px;
+      }
+
+      .bottom-row{
+        justify-content: space-around;
+      }
+        /* Style for Buttons */
+        .btns-container {
+            width: 10%;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            left: -40px;
+            /* border: 1pt solid white */
+            max-height: 150px;
+            justify-content: flex-end;
+        } 
+
+        .infoBtns{
+            margin: 5px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            
+        }
+
+        #search-input{
+            width: 10rem;
+        }
+
+        #search-input::placeholder {
+            font-size: 0.75rem;
+        }
   }
+
 
   
 /* Style for Flags */
@@ -73,25 +139,14 @@ body {
     border-radius: 10px;
 }
 
-.bottom-row{
-    display: flex;
-    justify-content: space-between;
-}
+
 /* Positioning of Globe */
- #globey { 
+ /* #globey { 
     max-height: 200px;
     max-width: 400px;
-}
+} */
 
-/* Style for Buttons */
-.btns-container {
-    width: 30vw;
-    height: 200px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    /* border: 1pt solid white */
-} 
+
 
 .infoBtns{
     margin: 5px;
