@@ -7,23 +7,23 @@ let user = {
     flags : []
 };
 
-// function callSavedData(){
-//     $(".countries-visited-container").empty()
-//     let storedData = localStorage.getItem("countries")
-//     console.log(storedData);
-//     console.log(typeof storedData);
-//     if (storedData === null){
-//         countriesVisited = []
-//     } else if (typeof storedData === "string"){
-//         countriesVisited.push(storedData)
-//         displayHistory(countriesVisited)
-//     } else {
-//         storedData.forEach(function(element){
-//             countriesVisited.push(element)
-//         })
-//         displayHistory(countriesVisited)
-//     } 
-// }
+function callSavedData(){
+    $(".countries-visited-container").empty()
+    let storedData = JSON.parse(localStorage.getItem(user.userName));
+    console.log(storedData);
+    // if (storedData.countriesVisited.length===0) {}
+    // if (storedData === null){
+    //     countriesVisited = []
+    // } else if (typeof storedData === "string"){
+    //     countriesVisited.push(storedData)
+    //     displayHistory(countriesVisited)
+    // } else {
+    //     storedData.forEach(function(element){
+    //         countriesVisited.push(element)
+    //     })
+    // displayHistory(storedData.countriesVisited);
+    // } 
+}
 function displayHistory (array){
     $(".countries-visited-container").empty()
     if (array.length === 1){
@@ -65,7 +65,8 @@ function getWeatherCondition(city) {
 
 $(function(){
     // retrieves saved values and displays them topleft
-    // callSavedData()
+
+    callSavedData()
 
     // Home Page
     if (!countryPage){
@@ -133,19 +134,19 @@ $(function(){
             // save data to localStorage
             $('#saveBtn').click(function(event){
                 event.preventDefault();
-                localStorage.setItem(user.userName, JSON.stringify(user));
-                // if (localStorage.getItem(user.userName)!==null) {
+                if (localStorage.getItem(user.userName)!==null) {
                     const userData = JSON.parse(localStorage.getItem(user.userName));
                     console.log(userData);
-                //     if (userData.countriesVisited.includes(userCountry)) {}
-                //     else {userData.countriesVisited.push(userCountry);}
-                //     if (userData.flags.includes(userFlag)) {}
-                //     else {userData.flag.push(userFlag)}
-                //     localStorage.setItem(user.userName, JSON.stringify(userData));
-                // } else {
-                //     localStorage.setItem(user.userName, JSON.stringify(user));
-                // }
-                // callSavedData()
+                    if (userData.countriesVisited.includes(userCountry)) {}
+                    else {userData.countriesVisited.push(userCountry);}
+                    if (userData.flags.includes(userFlag)) {}
+                    else {userData.flags.push(userFlag)}
+                    localStorage.setItem(user.userName, JSON.stringify(userData));
+                } else {
+                    localStorage.setItem(user.userName, JSON.stringify(user));
+                    console.log("Saved to localStorage");
+                }
+                callSavedData()
             })
             
     })
