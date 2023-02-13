@@ -4,13 +4,18 @@ let counter = 1;
 let user = {
     userName : "",
     countriesVisited : [],
-    flags : []
+    flags : [],
+    newUser : true,
 };
 
 function callSavedData(){
     $(".countries-visited-container").empty()
     let storedData = JSON.parse(localStorage.getItem(user.userName));
     console.log(storedData);
+    if (storedData === null) {}
+    else {
+        displayHistory(storedData.countriesVisited);
+    }
     // if (storedData.countriesVisited.length===0) {}
     // if (storedData === null){
     //     countriesVisited = []
@@ -83,6 +88,8 @@ $(function(){
         const name = $("#userName").val().trim();
         console.log(name);
         user.userName = name;
+        const newUser = $("input[id='newUser']:checked");
+        console.log(newUser);
         $("#userName").val("");
         $(".nameInput").addClass("hide")
     })
