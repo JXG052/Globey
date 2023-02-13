@@ -1,5 +1,7 @@
 let countryPage = false;
 
+$("")
+
 // Define variable to track the duplicate names if they are new users
 let duplicateCounter = 1;
 // Create an object that we save the user input and API responses in
@@ -77,19 +79,28 @@ $(function(){
         let name = $("#userName").val().trim();
         console.log(name);
         const newUser = $("#newUser").is(":checked");
-        // Check if the user is already in the localStorage and if it is a new user
-        // If it is a new user with the same name append a number at the end
-        if (localStorage.getItem(name) !== null && newUser===true) {
-            name += duplicateCounter;
-            duplicateCounter++;
+        const inputCheck = /^[0-9a-zA-Z]+$/;
+        if (name.match(inputCheck)) {
+            // Check if the user is already in the localStorage
+            // if it is a new user with the same name ask to select another userName
+            if (localStorage.getItem(name) !== null && newUser===true) {
+                $("#duplicateName").modal({show: true});
+            } else if (localStorage.getItem(name) === null && newUser===false) {
+                $("#invalidCheckbox").modal({show: true});
+            }
+             else {
+                user.userName = name;
+                user.isNewUser = newUser;
+                console.log(newUser);
+                $("#userName").val("");
+                $(".nameInput").addClass("hide");
+                // retrieves saved values and displays them topleft
+                callSavedData();
+            }
+        } else {
+            $("#invalidName").modal({show: true});
         }
-        user.userName = name;
-        user.isNewUser = newUser;
-        console.log(newUser);
-        $("#userName").val("");
-        $(".nameInput").addClass("hide");
-        // retrieves saved values and displays them topleft
-        callSavedData();
+
     })
 
 
