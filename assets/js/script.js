@@ -1,13 +1,17 @@
 let countryPage = false;
 
-let counter = 1;
-let user = {
+// Define variable to track the duplicate names if they are new users
+let duplicateCounter = 1;
+// Create an object that we save the user input and API responses in
+const user = {
     userName : "",
     countriesVisited : [],
     flags : [],
-    newUser : true,
+    isNewUser : true,
 };
 
+
+// The function call the data saved in localStorage
 function callSavedData(){
     $(".countries-visited-container").empty()
     let storedData = JSON.parse(localStorage.getItem(user.userName));
@@ -16,32 +20,18 @@ function callSavedData(){
     else {
         displayHistory(storedData.countriesVisited);
     }
-    // if (storedData.countriesVisited.length===0) {}
-    // if (storedData === null){
-    //     countriesVisited = []
-    // } else if (typeof storedData === "string"){
-    //     countriesVisited.push(storedData)
-    //     displayHistory(countriesVisited)
-    // } else {
-    //     storedData.forEach(function(element){
-    //         countriesVisited.push(element)
-    //     })
-    // displayHistory(storedData.countriesVisited);
-    // } 
 }
+
+
+// The function display the countries that the user visited
 function displayHistory (array){
     $(".countries-visited-container").empty()
-    if (array.length === 1){
-        let newDiv = $(`<div>${array[0]}</div>`)
-        $(".countries-visited-container").append(newDiv)       
-    }
-    else {
-        array.forEach(function(element){
-            let newDiv = $(`<div>${element}</div>`)
-            $(".countries-visited-container").append(newDiv)
+    array.forEach(function(element){
+        let newDiv = $(`<div>${element}</div>`)
+        $(".countries-visited-container").append(newDiv)
         })
-    }
 }
+
 // logs weather response based on city parameter
 function getWeatherCondition(city) {
     
@@ -69,9 +59,6 @@ function getWeatherCondition(city) {
 
 
 $(function(){
-    // retrieves saved values and displays them topleft
-
-    callSavedData()
 
     // Home Page
     if (!countryPage){
@@ -80,18 +67,29 @@ $(function(){
     $("#flag-container").empty()
     $(".btns-container").addClass("hide")
     $("#radio-div").addClass("hide")
+    $("#search-form").addClass("hide");
     }
 
     // Get the name input from user
     $("#nameSubmit").on("click", function(event) {
         event.preventDefault();
-        const name = $("#userName").val().trim();
+        $("#search-form").removeClass("hide");
+        let name = $("#userName").val().trim();
         console.log(name);
+        const newUser = $("#newUser").is(":checked");
+        // Check if the user is already in the localStorage and if it is a new user
+        // If it is a new user with the same name append a number at the end
+        if (localStorage.getItem(name) !== null && newUser===true) {
+            name += duplicateCounter;
+            duplicateCounter++;
+        }
         user.userName = name;
-        const newUser = $("input[id='newUser']:checked");
+        user.isNewUser = newUser;
         console.log(newUser);
         $("#userName").val("");
-        $(".nameInput").addClass("hide")
+        $(".nameInput").addClass("hide");
+        // retrieves saved values and displays them topleft
+        callSavedData();
     })
 
 
@@ -141,7 +139,8 @@ $(function(){
             // save data to localStorage
             $('#saveBtn').click(function(event){
                 event.preventDefault();
-                if (localStorage.getItem(user.userName)!==null) {
+                if (localStorage.getItem(user.userName) !== null && user.isNewUser === false) {
+                    console.log("User already in localStorage");
                     const userData = JSON.parse(localStorage.getItem(user.userName));
                     console.log(userData);
                     if (userData.countriesVisited.includes(userCountry)) {}
@@ -149,11 +148,14 @@ $(function(){
                     if (userData.flags.includes(userFlag)) {}
                     else {userData.flags.push(userFlag)}
                     localStorage.setItem(user.userName, JSON.stringify(userData));
-                } else {
+                }
+                else {
+                    user.isNewUser = false;
                     localStorage.setItem(user.userName, JSON.stringify(user));
                     console.log("Saved to localStorage");
                 }
-                callSavedData()
+                // retrieves saved values and displays them topleft
+                callSavedData();
             })
             
     })
@@ -161,7 +163,7 @@ $(function(){
 
     // Home Button
     $("#home-button").click(function(event){
-        // countryPage = false;
+        countryPage = false;
         $("#flag-container").empty()
         $(".btns-container").addClass("hide")
         $("#radio-div").addClass("hide")
