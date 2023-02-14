@@ -1,35 +1,39 @@
 let countryPage = false;
 
-let countriesVisited = []
+$("")
 
+// Define variable to track the duplicate names if they are new users
+let duplicateCounter = 1;
+// Create an object that we save the user input and API responses in
+const user = {
+    userName : "",
+    countriesVisited : [],
+    flags : [],
+    isNewUser : true,
+};
+
+
+// The function call the data saved in localStorage
 function callSavedData(){
     $(".countries-visited-container").empty()
-    let storedData = localStorage.getItem("countries")
-    if (storedData === null){
-        countriesVisited = []
-    } else if (typeof storedData === "string"){
-        countriesVisited.push(storedData)
-        displayHistory(countriesVisited)
-    } else {
-        storedData.forEach(function(element){
-            countriesVisited.push(element)
-        })
-        displayHistory(countriesVisited)
-    } 
+    let storedData = JSON.parse(localStorage.getItem(user.userName));
+    console.log(storedData);
+    if (storedData === null) {}
+    else {
+        displayHistory(storedData.countriesVisited);
+    }
 }
+
+
+// The function display the countries that the user visited
 function displayHistory (array){
     $(".countries-visited-container").empty()
-    if (array.length === 1){
-        let newDiv = $(`<div>${array[0]}</div>`)
-        $(".countries-visited-container").append(newDiv)       
-    }
-    else {
-        array.forEach(function(element){
-            let newDiv = $(`<div>${element}</div>`)
-            $(".countries-visited-container").append(newDiv)
+    array.forEach(function(element){
+        let newDiv = $(`<div>${element}</div>`)
+        $(".countries-visited-container").append(newDiv)
         })
-    }
 }
+
 // logs weather response based on city parameter
 function getWeatherCondition(city) {
     
@@ -57,8 +61,7 @@ function getWeatherCondition(city) {
 
 
 $(function(){
-    // retrieves saved values and displays them topleft
-    callSavedData()
+
     // Home Page
     if (!countryPage){
     let welcomeMessage = $(`<p class="speech-bubble-text">Hi User, I'm Globey, It's nice to meet you</p>`);
@@ -66,7 +69,39 @@ $(function(){
     $("#flag-container").empty()
     $(".btns-container").addClass("hide")
     $("#radio-div").addClass("hide")
+    $("#search-form").addClass("hide");
     }
+
+    // Get the name input from user
+    $("#nameSubmit").on("click", function(event) {
+        event.preventDefault();
+        $("#search-form").removeClass("hide");
+        let name = $("#userName").val().trim();
+        console.log(name);
+        const newUser = $("#newUser").is(":checked");
+        const inputCheck = /^[0-9a-zA-Z]+$/;
+        if (name.match(inputCheck)) {
+            // Check if the user is already in the localStorage
+            // if it is a new user with the same name ask to select another userName
+            if (localStorage.getItem(name) !== null && newUser===true) {
+                $("#duplicateName").modal({show: true});
+            } else if (localStorage.getItem(name) === null && newUser===false) {
+                $("#invalidCheckbox").modal({show: true});
+            }
+             else {
+                user.userName = name;
+                user.isNewUser = newUser;
+                console.log(newUser);
+                $("#userName").val("");
+                $(".nameInput").addClass("hide");
+                // retrieves saved values and displays them topleft
+                callSavedData();
+            }
+        } else {
+            $("#invalidName").modal({show: true});
+        }
+
+    })
 
 
     // Search
@@ -87,7 +122,9 @@ $(function(){
                 displayErrorScreen();
             }
         }).then(function (response) {
-            $("#globey").attr("src", "assets/images/Global Image.svg")
+            $("#globey").attr("src", "assets/images/Global Image.svg");
+            const userCountry = response[0].name;
+            user.countriesVisited.push(userCountry);
             welcomeMessage = (`<p class="speech-bubble-text">Welcome to ${response[0].name}`)
             $(".btns-container").removeClass("hide")
             $(".speech-bubble-container").append(welcomeMessage)
@@ -99,7 +136,9 @@ $(function(){
             // Add Flag
             $("#flag-container").empty();
             let flag = $(`<img src="${response[0].flag}" class="flag">`)
-            $("#flag-container").append(flag)
+            $("#flag-container").append(flag);
+            let userFlag = response[0].flag;
+            user.flags.push(userFlag);
 
             // Add functionality to buttons
             $(".btns-container").on("click", ".btn", function(event){
@@ -108,13 +147,26 @@ $(function(){
                 showInfo(response, buttonClicked)
             } )
 
-            // saves country name
+            // save data to localStorage
             $('#saveBtn').click(function(event){
-                event.preventDefault()
-                let countryToSave = response[0].name;
-                countriesVisited.push(countryToSave)
-                localStorage.setItem("countries", countriesVisited)  
-                callSavedData()     
+                event.preventDefault();
+                if (localStorage.getItem(user.userName) !== null && user.isNewUser === false) {
+                    console.log("User already in localStorage");
+                    const userData = JSON.parse(localStorage.getItem(user.userName));
+                    console.log(userData);
+                    if (userData.countriesVisited.includes(userCountry)) {}
+                    else {userData.countriesVisited.push(userCountry);}
+                    if (userData.flags.includes(userFlag)) {}
+                    else {userData.flags.push(userFlag)}
+                    localStorage.setItem(user.userName, JSON.stringify(userData));
+                }
+                else {
+                    user.isNewUser = false;
+                    localStorage.setItem(user.userName, JSON.stringify(user));
+                    console.log("Saved to localStorage");
+                }
+                // retrieves saved values and displays them topleft
+                callSavedData();
             })
             
     })
@@ -122,7 +174,7 @@ $(function(){
 
     // Home Button
     $("#home-button").click(function(event){
-        // countryPage = false;
+        countryPage = false;
         $("#flag-container").empty()
         $(".btns-container").addClass("hide")
         $("#radio-div").addClass("hide")
