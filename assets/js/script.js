@@ -20,17 +20,24 @@ function callSavedData(){
     console.log(storedData);
     if (storedData === null) {}
     else {
-        displayHistory(storedData.countriesVisited);
+        // displayHistory(storedData.countriesVisited);
+        displayHistory(storedData.flags);
     }
 }
 
 
-// The function display the countries that the user visited
+// The function display the national flag of the countries where the user visited
 function displayHistory (array){
     $(".countries-visited-container").empty()
-    array.forEach(function(element){
-        let newDiv = $(`<div>${element}</div>`)
-        $(".countries-visited-container").append(newDiv)
+    array.forEach(function(element) {
+        var img = $('<img />', {
+            src: element,
+            width: 75
+        });
+            let imgDiv = $(`<div>`);
+            imgDiv.addClass("flag");
+            let newDiv = imgDiv.append(img);
+            $(".countries-visited-container").append(newDiv)
         })
 }
 
