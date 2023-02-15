@@ -147,3 +147,13 @@ body {
     top: 0px;
 } */
 
+.countries-visited-container {
+    display: flex;
+    margin-top: 1%;
+    width: 10%;
+    height: 20%;
+}
+
+.flag {
+    margin: 5% 5%;
+}
