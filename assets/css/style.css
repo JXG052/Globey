@@ -21,7 +21,18 @@ body {
 }
 
 #home-button{
-    border-radius: 50px;
+    border-radius: 15px;
+    background-color: white;
+    color: #00bfb6;
+    margin-top: 5px;
+    border: 1pt solid white;
+    border-color: #00bfb6;
+}
+
+#home-button:hover{
+    background-color: #00bfb6;
+    color: white;
+    border-color: white;
 }
 
 /* Style for Top Row */
@@ -96,6 +107,15 @@ body {
 .infoBtns{
     margin: 5px;
     border-radius: 15px;
+    color: #00bfb6;
+    background-color: white;
+    border-color: #00bfb6;
+}
+
+.infoBtns:hover{
+    color: white;
+    background-color: #00bfb6;
+    border-color: white;
 }
 
 .features-container{
@@ -150,6 +170,6 @@ body {
     height: 20%;
 }
 
-.flag {
+.history-flag {
     margin: 5% 5%;
 }

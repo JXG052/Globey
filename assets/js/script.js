@@ -35,7 +35,7 @@ function displayHistory (array){
             width: 75
         });
             let imgDiv = $(`<div>`);
-            imgDiv.addClass("flag");
+            imgDiv.addClass("history-flag");
             let newDiv = imgDiv.append(img);
             $(".countries-visited-container").append(newDiv)
         })
@@ -71,7 +71,7 @@ $(function(){
 
     // Home Page
     if (!countryPage){
-    let welcomeMessage = $(`<p class="speech-bubble-text">Hi User, I'm Globey, It's nice to meet you</p>`);
+    let welcomeMessage = $(`<p class="speech-bubble-text">Hi there, I'm Globey, It's nice to meet you</p>`);
     $(".speech-bubble-container").append(welcomeMessage);
     $("#flag-container").empty()
     $(".btns-container").addClass("hide")
@@ -84,7 +84,7 @@ $(function(){
         event.preventDefault();
         $(".speech-bubble-container").empty()
         let name = $("#userName").val().trim();
-        let welcomeMessage = $(`<p class="speech-bubble-text">Hi ${name}, I'm Globey, It's nice to meet you</p>`);
+        let welcomeMessage = $(`<p class="speech-bubble-text">Hi ${name}! What country would you like to learn about today?</p>`);
         $(".speech-bubble-container").append(welcomeMessage);
         $("#search-form").removeClass("hide");
         
@@ -134,8 +134,8 @@ $(function(){
             }
         }).then(function (response) {
             $("#globey").attr("src", "assets/images/Global Image.svg");
-            const userCountry = response[0].name;
-            user.countriesVisited.push(userCountry);
+            let userCountry = response[0].name;
+            
             welcomeMessage = (`<p class="speech-bubble-text">Welcome to ${response[0].name}`)
             $(".btns-container").removeClass("hide")
             $(".speech-bubble-container").append(welcomeMessage)
@@ -149,7 +149,7 @@ $(function(){
             let flag = $(`<img src="${response[0].flag}" class="flag">`)
             $("#flag-container").append(flag);
             let userFlag = response[0].flag;
-            user.flags.push(userFlag);
+            ;
 
             // Add functionality to buttons
             $(".btns-container").on("click", ".btn", function(event){
@@ -193,7 +193,7 @@ $(function(){
         $("#saveBtn").addClass("hide")
         $("#globey").attr("src", "assets/images/Global Image.svg")
         clear()
-        let welcomeMessage = $(`<p class="speech-bubble-text">Welcome back to the home page</p>`);
+        let welcomeMessage = $(`<p class="speech-bubble-text">Welcome back to the home page. What Country would you like to learn about next?</p>`);
         $(".speech-bubble-container").append(welcomeMessage);
 
     })
