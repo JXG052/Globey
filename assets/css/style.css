@@ -173,10 +173,9 @@ body {
     width: 300px;
 } */
 
-
-
-
-
+.modal {
+    color: rgb(15, 10, 10);
+}
 
 
 /* Style for Inputs */
@@ -199,3 +198,13 @@ body {
     top: 0px;
 } */
 
+.countries-visited-container {
+    display: flex;
+    margin-top: 1%;
+    width: 10%;
+    height: 20%;
+}
+
+.flag {
+    margin: 5% 5%;
+}
