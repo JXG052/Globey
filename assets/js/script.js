@@ -134,8 +134,8 @@ $(function(){
             }
         }).then(function (response) {
             $("#globey").attr("src", "assets/images/Global Image.svg");
-            const userCountry = response[0].name;
-            user.countriesVisited.push(userCountry);
+            let userCountry = response[0].name;
+            
             welcomeMessage = (`<p class="speech-bubble-text">Welcome to ${response[0].name}`)
             $(".btns-container").removeClass("hide")
             $(".speech-bubble-container").append(welcomeMessage)
@@ -149,7 +149,7 @@ $(function(){
             let flag = $(`<img src="${response[0].flag}" class="flag">`)
             $("#flag-container").append(flag);
             let userFlag = response[0].flag;
-            user.flags.push(userFlag);
+            ;
 
             // Add functionality to buttons
             $(".btns-container").on("click", ".btn", function(event){
