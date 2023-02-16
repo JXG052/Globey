@@ -82,8 +82,12 @@ $(function(){
     // Get the name input from user
     $("#nameSubmit").on("click", function(event) {
         event.preventDefault();
-        $("#search-form").removeClass("hide");
+        $(".speech-bubble-container").empty()
         let name = $("#userName").val().trim();
+        let welcomeMessage = $(`<p class="speech-bubble-text">Hi ${name}, I'm Globey, It's nice to meet you</p>`);
+        $(".speech-bubble-container").append(welcomeMessage);
+        $("#search-form").removeClass("hide");
+        
         console.log(name);
         const newUser = $("#newUser").is(":checked");
         const inputCheck = /^[0-9a-zA-Z]+$/;
@@ -189,7 +193,7 @@ $(function(){
         $("#saveBtn").addClass("hide")
         $("#globey").attr("src", "assets/images/Global Image.svg")
         clear()
-        let welcomeMessage = $(`<p class="speech-bubble-text">Hi User, Welcome back to the home page</p>`);
+        let welcomeMessage = $(`<p class="speech-bubble-text">Welcome back to the home page</p>`);
         $(".speech-bubble-container").append(welcomeMessage);
 
     })
