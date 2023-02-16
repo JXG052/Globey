@@ -35,7 +35,7 @@ function displayHistory (array){
             width: 75
         });
             let imgDiv = $(`<div>`);
-            imgDiv.addClass("flag");
+            imgDiv.addClass("history-flag");
             let newDiv = imgDiv.append(img);
             $(".countries-visited-container").append(newDiv)
         })
