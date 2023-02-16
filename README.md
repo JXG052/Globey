@@ -13,23 +13,23 @@ about the selected country you can press the button at the bottom right corner w
 You can also press the "Home" button which will take you back to the Home screen.
 <br>
 
-Please see some mockup images of the website:
+Please see some mockup images of the website.
 
 
-On the first image you can see the first screen where you will be asked to enter you name:
+On the first image you can see the first screen where you will be asked to enter your name:
 
 <br>
 <img src="assets/images/Globey-first-screen-mockup.png" alt="Mockup image of the first screen of the website" style="width:500px;"/>
 
 <br>
-On the second image you will the screen after you searched for a country:
+On the second image you will see the screen after you searched for a country:
 <br>
 
 <br>
 <img src="assets/images/Globey-country-mockup.png" alt="Mockup image of the country page of the website" style="width:500px;"/>
 
 <br>
-On the third image you will see the screen when a user revisit a page:
+Finally on the third image you will see the screen when a user revisit the page:
 <br>
 
 <br>
