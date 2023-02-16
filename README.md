@@ -13,7 +13,7 @@ about the selected country you can press the button at the bottom right corner w
 You can also press the "Home" button which will take you back to the Home screen.
 <br>
 
-Please some mockup images of the website:
+Please see some mockup images of the website:
 
 
 On the first image you can see the first screen where you will be asked to enter you name:
@@ -37,6 +37,9 @@ On the third image you will see the screen when a user revisit a page:
 
 <br>
 You can find the deployed website on the following link: https://jxg052.github.io/Globey/
+
+<br>
+You can find the slides for our presentation here: https://docs.google.com/presentation/d/1UuGefKs7Tfp17llfURmDcTgUMuSgxCFTqMwXYBE9H9g/edit?usp=sharing
 
 ## Technologies
 
