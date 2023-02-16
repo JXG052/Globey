@@ -193,7 +193,7 @@ $(function(){
         $("#saveBtn").addClass("hide")
         $("#globey").attr("src", "assets/images/Global Image.svg")
         clear()
-        let welcomeMessage = $(`<p class="speech-bubble-text">Welcome back to the home page</p>`);
+        let welcomeMessage = $(`<p class="speech-bubble-text">Welcome back to the home page. What Country would you like to learn about next?</p>`);
         $(".speech-bubble-container").append(welcomeMessage);
 
     })
