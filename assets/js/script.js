@@ -84,7 +84,7 @@ $(function(){
         event.preventDefault();
         $(".speech-bubble-container").empty()
         let name = $("#userName").val().trim();
-        let welcomeMessage = $(`<p class="speech-bubble-text">Hi ${name}, I'm Globey, It's nice to meet you</p>`);
+        let welcomeMessage = $(`<p class="speech-bubble-text">Hi ${name}! What country would you like to learn about today?</p>`);
         $(".speech-bubble-container").append(welcomeMessage);
         $("#search-form").removeClass("hide");
         
