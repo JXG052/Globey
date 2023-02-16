@@ -71,7 +71,7 @@ $(function(){
 
     // Home Page
     if (!countryPage){
-    let welcomeMessage = $(`<p class="speech-bubble-text">Hi User, I'm Globey, It's nice to meet you</p>`);
+    let welcomeMessage = $(`<p class="speech-bubble-text">Hi there, I'm Globey, It's nice to meet you</p>`);
     $(".speech-bubble-container").append(welcomeMessage);
     $("#flag-container").empty()
     $(".btns-container").addClass("hide")
