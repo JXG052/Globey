@@ -116,7 +116,7 @@ $(function(){
 
 
     // Search
-    $("#search-form").on("submit", function(event){
+    $("#countrySubmit").on("click", function(event){
         event.preventDefault();
         countryPage = true;
         $(".countries-visited-container").addClass("hide")
